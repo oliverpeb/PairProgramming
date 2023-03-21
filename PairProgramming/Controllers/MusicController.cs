@@ -6,24 +6,24 @@ namespace PairProgramming.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TestController : ControllerBase
+    public class MusicController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<MusicController> _logger;
 
-        public TestController(ILogger<TestController> logger)
+        public MusicController(ILogger<MusicController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<RestHej> Get()
+        public IEnumerable<Music> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new RestHej
+            return Enumerable.Range(1, 5).Select(index => new Music
             {
                 
             })
