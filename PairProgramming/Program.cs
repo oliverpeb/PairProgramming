@@ -1,8 +1,13 @@
+using PairProgramming.Models;
+using PairProgramming.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSingleton<MusicRepository>(new MusicRepository());
+
 
 var app = builder.Build();
 

@@ -1,25 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PairProgramming.Models;
+using PairProgramming.Repositories;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PairProgramming.Controllers
 {
     [Route("api/[controller]")]
+    //URI: api/PairProgramming
     [ApiController]
     public class MusicController : ControllerBase
     {
+        private MusicRepository _musicRepository;
+
+        public MusicController(MusicRepository musicRepository)
+        {
+            _musicRepository = musicRepository;
+        }
+
+
         // GET: api/<MusicController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Music> Get()
         {
-            
+            List<Music> result = _musicRepository.GetAll();
+            return result;
+              
         }
 
         // GET api/<MusicController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
-        {
+        //public Music Get(int id)
+        //{
             
-        }
+        //}
 
         // POST api/<MusicController>
         [HttpPost]
