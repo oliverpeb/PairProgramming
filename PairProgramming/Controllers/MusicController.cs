@@ -28,22 +28,49 @@ namespace PairProgramming.Controllers
         }
 
         // GET api/<MusicController>/5
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
-        //public Music Get(int id)
-        //{
+        public ActionResult<Music> Get(int id)
+        {
+            Music? foundMusic = _musicRepository.GetbyID(id);
+            if (foundMusic == null)
+            {
+                return NotFound();
+            }
+            return Ok(foundMusic);
             
-        //}
+        }
 
         // POST api/<MusicController>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Music> Post([FromBody] Music newMusic)
         {
+            try
+            {
+                Music createdMusic = _musicRepository.Add(newMusic);
+                return Created($"api/musics/{createdMusic.Id}",createdMusic);
 
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<MusicController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<Music> //Put(int id, [FromBody] Music updates);
         {
 
         }
@@ -52,6 +79,7 @@ namespace PairProgramming.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }
